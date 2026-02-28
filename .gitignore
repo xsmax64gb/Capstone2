@@ -1,0 +1,29 @@
+node_mudules/
+
+# Environment files
+.env
+.env.*.local
+
+# Logs
+logs
+*.log
+*.log.*
+log/
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# =========================
+# IDE / Editor
+# =========================
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# =========================
+# Database & Storage
+# =========================
+# MySQL dumps
+*.bak
