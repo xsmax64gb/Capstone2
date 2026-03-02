@@ -1,4 +1,4 @@
-node_mudules/
+node_modules/
 
 # Environment files
 .env
