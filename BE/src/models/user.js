@@ -127,8 +127,7 @@ export const userModel = {
       r.role_name,
       p.address,
       p.gender,
-      p.dob,
-      p.occupation
+      p.dob
     FROM User u
     LEFT JOIN Role r ON u.role_id = r.role_id
     LEFT JOIN User_Profile p ON u.user_id = p.user_id
@@ -160,19 +159,19 @@ async updateUserWithProfile(user_id, data) {
       }
 
       // profile
-      const { address, dob, gender, occupation } = data;
-      if (address || dob || gender || occupation) {
+      const { address, dob, gender } = data;
+      if (address || dob || gender) {
         const [rows] = await conn.query(`SELECT profile_id FROM User_Profile WHERE user_id = ?`, [user_id]);
         if (rows.length > 0) {
           await conn.query(
-            `UPDATE User_Profile SET address = ?, dob = ?, gender = ?, occupation = ? WHERE user_id = ?`,
-            [address, dob, gender, occupation, user_id]
+            `UPDATE User_Profile SET address = ?, dob = ?, gender = ? WHERE user_id = ?`,
+            [address, dob, gender, user_id]
           );
         } else {
           const profile_id = crypto.randomUUID();
           await conn.query(
-            `INSERT INTO User_Profile (profile_id, user_id, dob, gender, address, occupation) VALUES (?, ?, ?, ?, ?, ?)`,
-            [profile_id, user_id, dob, gender, address, occupation]
+            `INSERT INTO User_Profile (profile_id, user_id, dob, gender, address) VALUES (?, ?, ?, ?, ?)`,
+            [profile_id, user_id, dob, gender, address]
           );
         }
       }
@@ -202,8 +201,7 @@ async updateUserWithProfile(user_id, data) {
       r.role_name,
       p.address,
       p.gender,
-      p.dob,
-      p.occupation
+      p.dob
     FROM User u
     LEFT JOIN Role r ON u.role_id = r.role_id
     LEFT JOIN User_Profile p ON u.user_id = p.user_id

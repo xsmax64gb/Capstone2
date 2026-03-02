@@ -7,9 +7,7 @@ Các route nằm trong `BE/src/routes/user.js` với tiền tố `/users`.
 - `POST /users/send-verify-code` : gửi mã OTP email để đăng ký.
 - `POST /users/register` : đăng ký tài khoản (cần username, password, email, verify_code,..).
 - `POST /users/login` : đăng nhập.
-- `GET /users` : lấy danh sách người dùng (cần token).
 - `GET /users/me` : lấy thông tin user hiện tại.
-- `GET /users/:id`, `PUT /users/:id`, `DELETE /users/:id` : CRUD user (token, admin).
 
 ### Quên mật khẩu
 
