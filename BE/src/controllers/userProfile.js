@@ -83,12 +83,18 @@ export const profileController = {
         return responseHandler.badRequest(res, "Thiếu thông tin mật khẩu");
       }
 
-      if (new_password !== confirm_password) {
-        return responseHandler.badRequest(res, "Xác nhận mật khẩu không khớp");
+      // ✅ Validate mật khẩu mới
+      if (!validator.isStrongPassword(new_password)) {
+        return responseHandler.badRequest(res, "Mật khẩu phải có ít nhất 8 ký tự, gồm chữ hoa, số và ký tự đặc biệt");
       }
 
-      if (new_password.length < 6) {
-        return responseHandler.badRequest(res, "Mật khẩu mới phải có ít nhất 6 ký tự");
+      // ✅ Validate confirm password
+      if (!validator.isStrongPassword(confirm_password)) {
+        return responseHandler.badRequest(res, "Xác nhận mật khẩu phải có ít nhất 8 ký tự, gồm chữ hoa, số và ký tự đặc biệt");
+      }
+
+      if (new_password !== confirm_password) {
+        return responseHandler.badRequest(res, "Xác nhận mật khẩu không khớp");
       }
 
       const result = await profileModel.changePassword(userId, old_password, new_password);
